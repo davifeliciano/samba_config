@@ -1,0 +1,32 @@
+auth:
+  - user: admin
+    group: smbgroup
+    uid: 1000
+    gid: 1000
+    password_file: /run/secrets/admin_password
+
+global:
+  - "min protocol = SMB3"
+  - "server smb encrypt = required"
+  - "use sendfile = yes"
+  - "min receivefile size = 16384"
+  - "aio read size = 1"
+  - "aio write size = 1"
+  - "load printers = no"
+  - "printing = bsd"
+  - "printcap name = /dev/null"
+  - "disable spoolss = yes"
+  - "max smbd processes = 10"
+  - "hosts allow = 127.0.0.1 192.168.68.0/22 100.64.0.0/10"
+  - "hosts deny = 0.0.0.0/0"
+
+share:
+  - name: Private
+    path: /shares/private
+    browsable: "yes"
+    readonly: "no"
+    guestok: "no"
+    validusers: "admin"
+    forceuser: "admin"
+    forcegroup: "smbgroup"
+    vetofiles: "/.DS_Store/Thumbs.db/"

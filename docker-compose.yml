@@ -1,0 +1,17 @@
+services:
+  samba:
+    image: crazymax/samba:latest
+    container_name: samba
+    network_mode: host
+    volumes:
+      - "./config.yml:/data/config.yml:ro"
+      - "./shares:/shares"
+    secrets:
+      - admin_password
+    environment:
+      - "TZ=America/Sao_Paulo"
+    restart: unless-stopped
+
+secrets:
+  admin_password:
+    file: ./secrets/admin_password.txt
